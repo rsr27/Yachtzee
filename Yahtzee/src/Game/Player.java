@@ -5,45 +5,59 @@ import java.util.ArrayList;
 public class Player {
 	
 	private final int numDice = 5;
-
-	private Die[] diceHand;
 	private ArrayList<Die> hand = new ArrayList<Die>();
 	private boolean isHuman;
+	public ScoreCalculator calc;
 	
+	// Default constructor sets the Player as human
 	public Player() {
-//		diceHand = new Die[6];
 		for(int i = 0; i < numDice; i++) {
 			hand.add(new Die());
 		}
 		isHuman = true;
+		calc = new ScoreCalculator(hand);
+		
 	}
 	
+	// Constructor that takes a boolean isHuman defining the Player as human or AI
 	public Player(boolean isHuman) {
-//		diceHand = new Die[6];
 		for(int i = 0; i < numDice; i++) {
 			hand.add(new Die());
 		}
 		
 		setHuman(isHuman);
+		calc = new ScoreCalculator(hand);
 	}
 	
+	// Loops through the dice hand and rolls any unheld dice
+	// Then updates the dice in the score calculator
 	public void rollUnheldDice() {
 		for (Die d : hand) {
 			if(!d.getHeldState()) {
 				d.roll();
 			}
-			System.out.println(d.getRollValue());
+			System.out.print(d.getRollValue() + " ");
 		}
+		System.out.println();
+		calc.getDice(hand);
 	}
 	
-	public void holdDie(int die) {
-//		diceHand[die].hold();
+	// holds the die at the given index
+	// returns true if called successfully
+	public boolean holdDie(int die) {
 		hand.get(die).hold();
+		return true;
 	}
 	
-	public void releaseDie(int die) {
-//		diceHand[die].release();
+	// releases the die at the given index
+	// returns true if called successfully
+	public boolean releaseDie(int die) {
 		hand.get(die).release();
+		return true;
+	}
+	
+	public ArrayList<Die> getDice() {
+		return hand;
 	}
 	
 	public void setHuman(boolean isHuman) {
