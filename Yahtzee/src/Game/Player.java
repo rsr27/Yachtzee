@@ -29,14 +29,28 @@ public class Player {
 	// Then updates the dice in the score calculator
 	public void rollUnheldDice() {
 		Hand.getInstance().rollUnheldDice();
-		
-		
+
 //		for (Die d : hand) {
 //			if(!d.getHeldState()) {
 //				d.roll();
 //			}
 //			System.out.print(d.getRollValue() + " ");
 //		}
+		
+		// Ryan: Added an * after the dice that are held to help 
+		// the player see which dice they've held.
+		
+		for (int i = 0; i < 5; i++)
+		{
+			if (Hand.getInstance().getHeldStatus(i + 1))
+			{
+				System.out.print(Hand.getInstance().getDieValue(i) + "* ");
+			}
+			else
+			{
+				System.out.print(Hand.getInstance().getDieValue(i) + " ");
+			}
+		}
 		
 		System.out.println();
 //		calc.getDice(hand);
@@ -63,8 +77,19 @@ public class Player {
 //	public ArrayList<Die> getDice() {
 //		return hand;
 //	}
+	public void releaseAllDice() {
+		
+		for (int i = 0; i < 5; i++)
+			releaseDie(i);
+	}
 	
+	// Sets the player as human or AI
 	public void setHuman(boolean isHuman) {
 		this.isHuman = isHuman;
+	}
+	
+	// Returns whether or nout our player is human or AI.
+	public boolean getHuman() {
+		return this.isHuman;
 	}
 }

@@ -2,6 +2,7 @@ package Actions;
 
 import java.util.Scanner;
 
+import Game.Hand;
 import Game.Player;
 
 public class HoldAction {
@@ -10,6 +11,7 @@ public class HoldAction {
 	// Gets user input about which die they would like to hold
 	// Holds the specified die and returns the player object
 	public static Player holdDie(Player player) {
+		
 		Scanner kb = new Scanner(System.in);
 		int dieIndex = -1;
 		
@@ -24,9 +26,9 @@ public class HoldAction {
 			// hold the specified die
 			if(dieIndex == 0)
 				break;
-			if(player.holdDie(dieIndex - 1)) {
+			if(Hand.getInstance().holdDie(dieIndex - 1)) {
 				System.out.print("Die #" + dieIndex + " with value of ");
-				System.out.println(player.getDice().get(dieIndex - 1).getRollValue() + " successfully held.");
+				System.out.println(Hand.getInstance().getDieValue(dieIndex - 1) + " successfully held.");
 				
 				// input loop
 				System.out.println();

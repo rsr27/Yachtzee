@@ -72,18 +72,31 @@ public class Hand {
 			return false;
 	}
 	
-	public void holdDie(int dieToHold) {
-		if(dieToHold > 0)
+	public boolean holdDie(int dieToHold) {
+		if(dieToHold >= 0)
+		{
 			holds[dieToHold] = true;
+			return true;
+		}
+		
+		return false;
 	}
 	
-	public void releaseDie(int dieToRelease) {
-		if(dieToRelease > 0)
+	public boolean releaseDie(int dieToRelease) {
+		if(dieToRelease >= 0) {
 			holds[dieToRelease] = false;
+			return true;
+		}
+		
+		return false;
 	}
 	
 	public int[] getDiceValues() {
 		return dice;
+	}
+
+	public int getDieValue(int whichDie) {
+			return dice[whichDie];
 	}
 	
 	public HandState getHandState(){

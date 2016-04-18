@@ -2,6 +2,7 @@ package Actions;
 
 import java.util.Scanner;
 
+import Game.Hand;
 import Game.Player;
 
 public class ReleaseAction {
@@ -24,7 +25,7 @@ public class ReleaseAction {
 				// release the specified die
 				if(player.releaseDie(dieIndex - 1)) {
 					System.out.print("Die #" + dieIndex + " with value of ");
-					System.out.println(player.getDice().get(dieIndex - 1).getRollValue() + " successfully released.");
+					System.out.println(Hand.getInstance().getDieValue(dieIndex - 1) + " successfully released.");
 					
 					// input loop
 					System.out.println();

@@ -14,7 +14,7 @@ public class AddToScoresheetAction {
 		displayScoreSheet(player);
 		decision = kb.nextInt();
 		
-		player.calc.getDice(player.getDice());
+		//player.calc.getDice(player.getDice());
 		
 		switch(decision) {
 		case 1:
@@ -112,8 +112,10 @@ public class AddToScoresheetAction {
 		
 		Player.displayScoreSheet();
 		
-		return player;
+		// ?
+		return null;
 	}
+	//*/
 	
 	public static void displayScoreSheet(Player player) {
 		System.out.println();

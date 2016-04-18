@@ -59,6 +59,11 @@ public class Turn {
 		
 		scored = true;
 		player = AddToScoresheetAction.addScoretoSheet(player);
+		player.releaseAllDice();
+		rollCount = 1;
+
+		player.rollUnheldDice();
+		
 		return player;
 	}
 	
