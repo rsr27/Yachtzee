@@ -1,26 +1,27 @@
 package Game;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ScoreCalculator {
 	
 	public Scoresheet scores;
-	private ArrayList<Die> dice = new ArrayList<Die>();
-	private ArrayList<Integer> values = new ArrayList<Integer>();
+//	private ArrayList<Die> dice = new ArrayList<Die>();
+//	private ArrayList<Integer> values = new ArrayList<Integer>();
 	
 	// Constructor takes an ArrayList of dice
-	public ScoreCalculator(ArrayList<Die> dice) {
-		getDice(dice);
+	public ScoreCalculator() {
+//		getDice(dice);
 		scores = new Scoresheet();
 	}
 
 	// refreshes the dice and values lists with the passed list of dice
-	public void getDice(ArrayList<Die> dice) {
-		this.dice = dice;
-		for(Die d : dice) {
-			values.add(d.getRollValue());
-		}
-	}
+//	public void getDice(ArrayList<Die> dice) {
+//		this.dice = dice;
+//		for(Die d : dice) {
+//			values.add(d.getRollValue());
+//		}
+//	}
 	
 	// ----- Here be Dragons - and boring math ----- //
 	// Each "score" function calculates the score for the given hand
@@ -29,8 +30,8 @@ public class ScoreCalculator {
 	
 	public boolean scoreOnes() {
 		int value = 0;
-		for(Die d : dice) {
-			if(d.getRollValue() == 1) {
+		for(int i : Hand.getInstance().getDiceValues()) {
+			if(i == 1) {
 				value += 1;
 			}
 		}
@@ -39,8 +40,8 @@ public class ScoreCalculator {
 	
 	public boolean scoreTwos() {
 		int value = 0;
-		for(Die d : dice) {
-			if(d.getRollValue() == 2) {
+		for(int i : Hand.getInstance().getDiceValues()) {
+			if(i == 2) {
 				value += 2;
 			}
 		}
@@ -49,8 +50,8 @@ public class ScoreCalculator {
 	
 	public boolean scoreThrees() {
 		int value = 0;
-		for(Die d : dice) {
-			if(d.getRollValue() == 3) {
+		for(int i : Hand.getInstance().getDiceValues()) {
+			if(i == 3) {
 				value += 3;
 			}
 		}
@@ -59,8 +60,8 @@ public class ScoreCalculator {
 	
 	public boolean scoreFours() {
 		int value = 0;
-		for(Die d : dice) {
-			if(d.getRollValue() == 4) {
+		for(int i : Hand.getInstance().getDiceValues()) {
+			if(i == 4) {
 				value += 4;
 			}
 		}
@@ -69,8 +70,8 @@ public class ScoreCalculator {
 	
 	public boolean scoreFives() {
 		int value = 0;
-		for(Die d : dice) {
-			if(d.getRollValue() == 5) {
+		for(int i : Hand.getInstance().getDiceValues()) {
+			if(i == 5) {
 				value += 5;
 			}
 		}
@@ -79,8 +80,8 @@ public class ScoreCalculator {
 	
 	public boolean scoreSixes() {
 		int value = 0;
-		for(Die d : dice) {
-			if(d.getRollValue() == 6) {
+		for(int i : Hand.getInstance().getDiceValues()) {
+			if(i == 6) {
 				value += 6;
 			}
 		}
@@ -89,14 +90,19 @@ public class ScoreCalculator {
 	
 	public boolean scoreChance() {
 		int value = 0;
-		for(Die d : dice) {
-			value += d.getRollValue();
+		for(int i : Hand.getInstance().getDiceValues()) {
+			value += i;
 		}
 		return scores.addScore("chance", value);
 	}
 	
 	public boolean scoreSmallStraight() {
 		int value = 0;
+		ArrayList<Integer> values = new ArrayList<Integer>();
+		int[] valuesArray = Hand.getInstance().getDiceValues();
+		for(int i : valuesArray) {
+			values.add(i);
+		}
 		
 		// calculates whether or not the dice contain a small straight
 		// and adds 30 to the score if so
@@ -113,6 +119,11 @@ public class ScoreCalculator {
 	
 	public boolean scoreLargeStraight() {
 		int value = 0;
+		ArrayList<Integer> values = new ArrayList<Integer>();
+		int[] valuesArray = Hand.getInstance().getDiceValues();
+		for(int i : valuesArray) {
+			values.add(i);
+		}
 		
 		// calculates whether or not the dice contain a large straight
 		// and adds 40 to the score if so
@@ -125,6 +136,11 @@ public class ScoreCalculator {
 	
 	public boolean score3ofaKind() {
 		int value = 0;
+		ArrayList<Integer> values = new ArrayList<Integer>();
+		int[] valuesArray = Hand.getInstance().getDiceValues();
+		for(int i : valuesArray) {
+			values.add(i);
+		}
 		int duplicates = 0;
 		int sumOfDice = 0;
 		
@@ -152,6 +168,11 @@ public class ScoreCalculator {
 	
 	public boolean score4ofaKind() {
 		int value = 0;
+		ArrayList<Integer> values = new ArrayList<Integer>();
+		int[] valuesArray = Hand.getInstance().getDiceValues();
+		for(int i : valuesArray) {
+			values.add(i);
+		}
 		int duplicates = 0;
 		int sumOfDice = 0;
 		
@@ -179,6 +200,11 @@ public class ScoreCalculator {
 	
 	public boolean scoreFullHouse() {
 		int value = 0;
+		ArrayList<Integer> values = new ArrayList<Integer>();
+		int[] valuesArray = Hand.getInstance().getDiceValues();
+		for(int i : valuesArray) {
+			values.add(i);
+		}
 		int dieValue1 = values.get(0);
 		int dieValue1Count = 0;
 		int dieValue2 = 0;
@@ -208,10 +234,16 @@ public class ScoreCalculator {
 	}
 	
 	public boolean scoreYahtzee() {
-		int value = 0;
-		int dieValue = dice.get(0).getRollValue();
-		for(Die d : dice) {
-			if(d.getRollValue() != dieValue) {
+		int value = 50;
+		ArrayList<Integer> values = new ArrayList<Integer>();
+		int[] valuesArray = Hand.getInstance().getDiceValues();
+		for(int i : valuesArray) {
+			values.add(i);
+		}
+		int dieValue = valuesArray[0];
+		for(int i : valuesArray) {
+			if(i != dieValue) {
+				value = 0;
 				break;
 			}
 		}

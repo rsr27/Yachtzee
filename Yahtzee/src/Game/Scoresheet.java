@@ -36,7 +36,7 @@ public class Scoresheet {
 			numSlotsFilled++;
 			return true;
 		} else {
-			System.out.println("This slot already filled!");
+			System.out.println("This slot is already filled!");
 			return false;
 		}
 	}
@@ -57,6 +57,33 @@ public class Scoresheet {
 		if(numSlotsFilled < 13)
 			return false;
 		return true;
+	}
+	
+	public void displayScoreSheet() {
+		System.out.println();
+		System.out.println("Ones:            1    " + getScoreInSheet("ones"));
+		System.out.println("Twos:            2    " + getScoreInSheet("twos"));
+		System.out.println("Threes:          3    " + getScoreInSheet("threes"));
+		System.out.println("Fours:           4    " + getScoreInSheet("fours"));
+		System.out.println("Fives:           5    " + getScoreInSheet("fives"));
+		System.out.println("Sixes:           6    " + getScoreInSheet("sixes"));
+		System.out.println("Chance:          7    " + getScoreInSheet("chance"));
+		System.out.println("Small Straight:  8    " + getScoreInSheet("smStr8"));
+		System.out.println("Large Straight:  9    " + getScoreInSheet("lgStr8"));
+		System.out.println("3 of a Kind:     10   " + getScoreInSheet("3ofaKind"));
+		System.out.println("4 of a Kind:     11   " + getScoreInSheet("4ofaKind"));
+		System.out.println("Full House:      12   " + getScoreInSheet("fullHouse"));
+		System.out.println("Yahtzee:         13   " + getScoreInSheet("yahtzee"));
+		System.out.println();
+	}
+	
+	public String getScoreInSheet(String slot) {
+		String returnString = "Slot holds: ";
+		if(scoreHash.get(slot) == -1)
+			returnString += "empty";
+		else
+			returnString += scoreHash.get(slot).toString();
+		return returnString;
 	}
 
 }

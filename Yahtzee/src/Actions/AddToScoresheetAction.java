@@ -65,6 +65,56 @@ public class AddToScoresheetAction {
 		return player;
 	}
 	
+	public static Player addScoretoSheet(int slot) {		
+		switch(slot) {
+		case 1:
+			Player.calc.scoreOnes();
+			break;
+		case 2:
+			Player.calc.scoreTwos();
+			break;
+		case 3:
+			Player.calc.scoreThrees();
+			break;
+		case 4:
+			Player.calc.scoreFours();
+			break;
+		case 5:
+			Player.calc.scoreFives();
+			break;
+		case 6:
+			Player.calc.scoreSixes();
+			break;
+		case 7:
+			Player.calc.scoreChance();
+			break;
+		case 8:
+			Player.calc.scoreSmallStraight();
+			break;
+		case 9:
+			Player.calc.scoreLargeStraight();
+			break;
+		case 10:
+			Player.calc.score3ofaKind();
+			break;
+		case 11:
+			Player.calc.score4ofaKind();
+			break;
+		case 12:
+			Player.calc.scoreFullHouse();
+			break;
+		case 13:
+			Player.calc.scoreYahtzee();
+			break;
+		default:
+			break;
+		}
+		
+		Player.displayScoreSheet();
+		
+		return player;
+	}
+	
 	public static void displayScoreSheet(Player player) {
 		System.out.println();
 		System.out.println("Ones:            1    " + getScoreInSheet(player, "ones"));

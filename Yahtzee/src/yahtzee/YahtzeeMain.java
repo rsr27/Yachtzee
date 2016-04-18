@@ -29,7 +29,7 @@ public class YahtzeeMain {
 		int dieIndex = -1;
 		Scanner kb = new Scanner(System.in);
 		
-		System.out.print("Enter the dumber of the die you would like to hold (just one): ");
+		System.out.print("Enter the number of the die you would like to hold (just one): ");
 		whichDie = kb.next();
 		dieIndex = Integer.parseInt(whichDie);
 	}
