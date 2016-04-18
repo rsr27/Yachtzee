@@ -9,6 +9,8 @@ import Game.Player;
 public class YahtzeeMain {
 
 	public static void main(String[] args) {
+		
+		// This is just so I can commit... -Ryan
 		Player player = new Player(true);
 		Scanner kb = new Scanner(System.in);
 		
