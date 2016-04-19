@@ -27,8 +27,14 @@ public class FourAndUp implements Strategy {
 			}
 			
 			if(player.calc.isYahtzee())
+			{
 				AddToScoresheetAction.addScoretoSheet(player, 13);
+				
+				if (player.getPreviousSuccess())
+					break;
+			}
 		}
+		
 		AddToScoresheetAction.addScoretoSheet(player, player.calc.getBestSlot());
 	}
 

@@ -14,7 +14,7 @@ public class YahtzeeMain {
 		
 		// Setting the player to an AI now.
 		// Here be dragons...
-		Player player = new Player(true);
+		Player player = new Player(false);
 		
 		Scanner kb = new Scanner(System.in);
 		
@@ -29,6 +29,10 @@ public class YahtzeeMain {
 		while(!player.calc.scores.mapIsFull()) {
 			turn.turnRounds(player);
 		}
+		
+		System.out.println();
+		System.out.println("Your final score: " + player.calc.scores.getTotalScore());
+		player.displayScoreSheet();
 	}
 	
 	public static void holdDice() {

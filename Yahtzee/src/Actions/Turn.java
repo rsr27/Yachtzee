@@ -2,6 +2,7 @@ package Actions;
 
 import java.util.Scanner;
 
+import AI.*;
 import Game.Hand;
 import Game.Player;
 
@@ -76,8 +77,22 @@ public class Turn {
 		else
 		{
 			// AI
+			Strategy strats;
+			String stratName = AIPicker.pickAI();
+			if(stratName.equals("Upper Sectioner"))
+				strats = new UpperSectioner(player);
+			else if(stratName.equals("4 and Up"))
+				strats = new FourAndUp(player);
+			else if(stratName.equals("Of a Kinder"))
+				strats = new OfAKinder(player);
+			else
+				strats = new RandomStrategy(player);
+			strats.takeTurn();
 			
-			
+			// Release the Kraken!
+			player.releaseAllDice();
+			Hand.getInstance().setNumRolls(1);
+			player.rollUnheldDice();
 		}
 		
 		return player;

@@ -30,8 +30,29 @@ public class RandomStrategy implements Strategy {
 			
 			player.incrementNumRolls();
 		}
+
+		int randomChoice, randChoiceNext;
 		
-		AddToScoresheetAction.addScoretoSheet(player, rand.nextInt(13) + 1);
+		randomChoice = rand.nextInt(13) + 1;
+		randChoiceNext = randomChoice;
+		AddToScoresheetAction.addScoretoSheet(player, randomChoice);
+		
+		while (!player.getPreviousSuccess())
+		{
+			// Cycle through available options.
+			randChoiceNext++;
+			
+			// If we go over 13, go back to 1
+			if (randChoiceNext >= 13)
+				randChoiceNext -= 12;
+			
+			// If we reach our original value, we're done.
+			if (randomChoice == randChoiceNext )
+				break;
+			
+			// Attempt to add the score.
+			player = AddToScoresheetAction.addScoretoSheet(player, randChoiceNext);
+		}	
 	}
 
 	@Override

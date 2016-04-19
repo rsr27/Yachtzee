@@ -36,8 +36,8 @@ public class OfAKinder implements Strategy {
 				}
 			}
 			
-			if(player.calc.isYahtzee())
-				AddToScoresheetAction.addScoretoSheet(player, 13);
+//			if(player.calc.isYahtzee())
+//				AddToScoresheetAction.addScoretoSheet(player, 13);
 		}
 		
 		AddToScoresheetAction.addScoretoSheet(player, player.calc.getBestSlot());

@@ -46,7 +46,7 @@ public class Scoresheet {
 	
 	public int getTotalScore() {
 		int scoreInSlot = 0;
-		Iterator it = scoreHash.entrySet().iterator();
+		Iterator it = scoreHash.values().iterator();
 		while(it.hasNext()) {
 			scoreInSlot = (int) it.next();
 			if (scoreInSlot != -1) {
@@ -112,4 +112,8 @@ public class Scoresheet {
 		return returnString;
 	}
 
+	public boolean slotInSheet(String slot)
+	{
+		return scoreHash.get(slot) != -1;
+	}
 }

@@ -34,29 +34,109 @@ public class ScoreCalculator {
 	}
 	
 	public int getBestSlot() {
-		ArrayList<Integer> scores = new ArrayList<Integer>();
-		scores.add(scoreOnes());
-		scores.add(scoreTwos());
-		scores.add(scoreThrees());
-		scores.add(scoreFours());
-		scores.add(scoreFives());
-		scores.add(scoreSixes());
-		scores.add(scoreChance());
-		scores.add(scoreSmallStraight());
-		scores.add(scoreLargeStraight());
-		scores.add(score3ofaKind());
-		scores.add(score4ofaKind());
-		scores.add(scoreFullHouse());
-		scores.add(scoreYahtzee());
+		
+		ArrayList<Integer> localScores = new ArrayList<Integer>();
+		
+		if (scores.slotInSheet("ones")) {
+			localScores.add(-1);
+		}
+		else {
+			localScores.add(scoreOnes());
+		};
+
+		if (scores.slotInSheet("twos")) {
+			localScores.add(-1);
+		}
+		else {
+			localScores.add(scoreTwos());
+		};
+
+		if (scores.slotInSheet("threes")) {
+			localScores.add(-1);
+		}
+		else {
+			localScores.add(scoreThrees());
+		};
+
+		if (scores.slotInSheet("fours")) {
+			localScores.add(-1);
+		}
+		else {
+			localScores.add(scoreFours());
+		};
+
+		if (scores.slotInSheet("fives")) {
+			localScores.add(-1);
+		}
+		else {
+			localScores.add(scoreFives());
+		};
+
+		if (scores.slotInSheet("sixes")) {
+			localScores.add(-1);
+		}
+		else {
+			localScores.add(scoreSixes());
+		};
+
+		if (scores.slotInSheet("chance")) {
+			localScores.add(-1);
+		}
+		else {
+			localScores.add(scoreChance());
+		};
+
+		if (scores.slotInSheet("smStr8")) {
+			localScores.add(-1);
+		}
+		else {
+			localScores.add(scoreSmallStraight());
+		};
+
+		if (scores.slotInSheet("lgStr8")) {
+			localScores.add(-1);
+		}
+		else {
+			localScores.add(scoreLargeStraight());
+		};
+		
+		if (scores.slotInSheet("3ofaKind")) {
+			localScores.add(-1);
+		}
+		else {
+			localScores.add(score3ofaKind());
+		};
+
+		if (scores.slotInSheet("4ofaKind")) {
+			localScores.add(-1);
+		}
+		else {
+			localScores.add(score4ofaKind());
+		};
+
+		if (scores.slotInSheet("fullHouse")) {
+			localScores.add(-1);
+		}
+		else {
+			localScores.add(scoreFullHouse());
+		};
+
+		if (scores.slotInSheet("yahtzee")) {
+			localScores.add(-1);
+		}
+		else {
+			localScores.add(scoreYahtzee());
+		};
 		
 		int largest = 0;
 		int currentIndex = 0;
 		int largestIndex = 0;
-		for(int i : scores) {
+		for(int i : localScores) {
 			if (i > largest) {
 				largest = i;
 				largestIndex = currentIndex;
 			}
+			
 			currentIndex++;
 		}
 		
@@ -386,7 +466,7 @@ public class ScoreCalculator {
 //		}
 		
 		if(isFullHouse())
-			return 50;
+			return 25;
 		else
 			return 0;
 	}
