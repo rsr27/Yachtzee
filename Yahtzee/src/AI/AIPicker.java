@@ -4,6 +4,10 @@ import java.util.Random;
 
 import Game.Player;
 
+/*
+ * This class selects one of the AI Strategies
+ * This class is IMMUTABLE
+ */
 public final class AIPicker {
 	
 	public static String pickAI() {

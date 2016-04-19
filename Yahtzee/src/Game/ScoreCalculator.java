@@ -8,22 +8,11 @@ import java.util.Arrays;
 public class ScoreCalculator {
 	
 	public Scoresheet scores;
-//	private ArrayList<Die> dice = new ArrayList<Die>();
-//	private ArrayList<Integer> values = new ArrayList<Integer>();
 	
 	// Constructor takes an ArrayList of dice
 	public ScoreCalculator() {
-//		getDice(dice);
 		scores = new Scoresheet();
 	}
-
-	// refreshes the dice and values lists with the passed list of dice
-//	public void getDice(ArrayList<Die> dice) {
-//		this.dice = dice;
-//		for(Die d : dice) {
-//			values.add(d.getRollValue());
-//		}
-//	}
 	
 	// ----- Here be Dragons - and boring math ----- //
 	// Each "score" function calculates the score for the given hand
@@ -446,34 +435,7 @@ public class ScoreCalculator {
 		
 	}
 	
-	public int score4ofaKind() {
-//		int value = 0;
-//		ArrayList<Integer> values = new ArrayList<Integer>();
-//		int[] valuesArray = Hand.getInstance().getDiceValues();
-//		for(int i : valuesArray) {
-//			values.add(i);
-//		}
-//		int duplicates = 0;
-//		int sumOfDice = 0;
-//		
-//		// keep track of the total value of the dice
-//		for(int i : values) {
-//			sumOfDice += i;
-//		}
-//		
-//		// loop through the values twice to check for duplicates
-//		for(int i : values) {
-//			duplicates = 0;
-//			for(int j : values) {
-//				if(j == i) {
-//					duplicates++;
-//				}
-//			}
-//			if(duplicates >= 4) {
-//				value = sumOfDice;
-//				break;
-//			}
-//		}		
+	public int score4ofaKind() {	
 		
 		ArrayList<Integer> values = new ArrayList<Integer>();
 		int[] valuesArray = Hand.getInstance().getDiceValues();
@@ -515,37 +477,6 @@ public class ScoreCalculator {
 	}
 	
 	public int scoreFullHouse() {
-//		int value = 0;
-//		ArrayList<Integer> values = new ArrayList<Integer>();
-//		int[] valuesArray = Hand.getInstance().getDiceValues();
-//		for(int i : valuesArray) {
-//			values.add(i);
-//		}
-//		int dieValue1 = values.get(0);
-//		int dieValue1Count = 0;
-//		int dieValue2 = 0;
-//		int dieValue2Count = 0;
-//		
-//		for(int i : values) {
-//			if(i != dieValue1) {
-//				dieValue2 = i;
-//				break;
-//			}
-//		}
-//		
-//		for(int i : values) {
-//			if(i == dieValue1) {
-//				dieValue1Count++;
-//			}
-//			if(i == dieValue2) {
-//				dieValue2Count++;
-//			}
-//		}
-//		
-//		if((dieValue1Count == 2 && dieValue2Count == 3) || (dieValue1Count == 3 && dieValue2Count == 2)) {
-//			value = 25;
-//		}
-		
 		if(isFullHouse())
 			return 25;
 		else
@@ -586,19 +517,6 @@ public class ScoreCalculator {
 	}
 	
 	public int scoreYahtzee() {
-//		int value = 50;
-//		ArrayList<Integer> values = new ArrayList<Integer>();
-//		int[] valuesArray = Hand.getInstance().getDiceValues();
-//		for(int i : valuesArray) {
-//			values.add(i);
-//		}
-//		int dieValue = valuesArray[0];
-//		for(int i : valuesArray) {
-//			if(i != dieValue) {
-//				value = 0;
-//				break;
-//			}
-//		}
 		if(isYahtzee())
 			return 50;
 		else

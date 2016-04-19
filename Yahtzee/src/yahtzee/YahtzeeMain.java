@@ -15,13 +15,16 @@ public class YahtzeeMain {
 		// Setting the player to an AI now.
 		// Here be dragons...
 		Player player = new Player(false);
-		
-		Scanner kb = new Scanner(System.in);
-		
+
 		System.out.println("Welcome to Yahtzee!");
-		System.out.println("Enter any letter to roll!");
-		if(kb.next() != null || kb.next() == null) {
-			player.rollUnheldDice();
+		
+		// if the player is a computer player, then the game auto-plays with no interaction
+		if(player.getHuman()) {
+			Scanner kb = new Scanner(System.in);
+			System.out.println("Enter any letter to roll!");
+			if(kb.next() != null || kb.next() == null) {
+				player.rollUnheldDice();
+			}
 		}
 		
 		Turn turn = new Turn(player);

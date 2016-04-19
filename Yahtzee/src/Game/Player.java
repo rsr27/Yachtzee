@@ -4,19 +4,19 @@ import java.util.ArrayList;
 
 import AI.RandomStrategy;
 import AI.Strategy;
-
+/*
+ * This class acts as a FACADE
+ */
 public class Player {
 	
 	//private ArrayList<Die> hand = new ArrayList<Die>();
 	private boolean isHuman;
 	public static ScoreCalculator calc;
-	//private ArrayList<Strategy> strategies;
 	
 	// Default constructor sets the Player as human
 	public Player() {
 		isHuman = true;
 		calc = new ScoreCalculator();
-		//strategies.add(new RandomStrategy(this));
 	}
 	
 	// Constructor that takes a boolean isHuman defining the Player as human or AI
@@ -29,13 +29,6 @@ public class Player {
 	// Then updates the dice in the score calculator
 	public void rollUnheldDice() {
 		Hand.getInstance().rollUnheldDice();
-
-//		for (Die d : hand) {
-//			if(!d.getHeldState()) {
-//				d.roll();
-//			}
-//			System.out.print(d.getRollValue() + " ");
-//		}
 		
 		// Ryan: Added an * after the dice that are held to help 
 		// the player see which dice they've held.
@@ -53,7 +46,6 @@ public class Player {
 		}
 		
 		System.out.println();
-//		calc.getDice(hand);
 	}
 	
 	// holds the die at the given index
