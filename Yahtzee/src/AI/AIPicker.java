@@ -4,7 +4,7 @@ import java.util.Random;
 
 import Game.Player;
 
-public class AIPicker {
+public final class AIPicker {
 	
 	public static String pickAI() {
 		Random rand = new Random();
