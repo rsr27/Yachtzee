@@ -1,6 +1,7 @@
 package Actions;
 
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 import AI.*;
 import Game.Hand;
@@ -87,12 +88,25 @@ public class Turn {
 				strats = new OfAKinder(player);
 			else
 				strats = new RandomStrategy(player);
+
+			
+			strats = new FourAndUp(player);
+			System.out.println(strats.getName());
+			
 			strats.takeTurn();
 			
 			// Release the Kraken!
 			player.releaseAllDice();
 			Hand.getInstance().setNumRolls(1);
 			player.rollUnheldDice();
+			
+			// Delay to let us see output
+//			try {
+//				TimeUnit.SECONDS.sleep(6);
+//			} catch (InterruptedException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
 		}
 		
 		return player;
