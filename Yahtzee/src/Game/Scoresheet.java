@@ -116,4 +116,23 @@ public class Scoresheet {
 	{
 		return scoreHash.get(slot) != -1;
 	}
+	
+	public void resetScores() {
+		scoreHash.put("ones", -1);
+		scoreHash.put("twos", -1);
+		scoreHash.put("threes", -1);
+		scoreHash.put("fours", -1);
+		scoreHash.put("fives", -1);
+		scoreHash.put("sixes", -1);
+		scoreHash.put("chance", -1);
+		scoreHash.put("smStr8", -1);
+		scoreHash.put("lgStr8", -1);
+		scoreHash.put("3ofaKind", -1);
+		scoreHash.put("4ofaKind", -1);
+		scoreHash.put("yahtzee", -1);
+		scoreHash.put("fullHouse", -1);
+
+		numSlotsFilled = 0;
+		totalScore = 0;
+	}
 }
