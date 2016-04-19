@@ -7,6 +7,7 @@ import java.util.Iterator;
 public class Scoresheet {
 	private int totalScore;
 	private int numSlotsFilled;
+	private boolean previousSuccess = true;
 	
 	public HashMap<String, Integer> scoreHash = new HashMap<>();
 	
@@ -34,11 +35,13 @@ public class Scoresheet {
 			scoreHash.put(slot, 0);
 			scoreHash.put(slot, score);
 			numSlotsFilled++;
-			return true;
+			previousSuccess = true;
 		} else {
 			System.out.println("This slot is already filled!");
-			return false;
+			previousSuccess = false;
 		}
+		
+		return previousSuccess;
 	}
 	
 	public int getTotalScore() {
@@ -51,6 +54,29 @@ public class Scoresheet {
 			}
 		}
 		return totalScore;
+	}
+
+	public boolean getPreviousSuccess()
+	{
+		return previousSuccess;
+	}
+	
+	public boolean upperSectionIsFull() {
+		if(scoreHash.get("chance") == -1)
+			return false;
+		if(scoreHash.get("smStr8") == -1)
+			return false;
+		if(scoreHash.get("lgStr8") == -1)
+			return false;
+		if(scoreHash.get("3ofaKind") == -1)
+			return false;
+		if(scoreHash.get("4ofaKind") == -1)
+			return false;
+		if(scoreHash.get("fullHouse") == -1)
+			return false;
+		if(scoreHash.get("yahtzee") == -1)
+			return false;
+		return true;
 	}
 	
 	public boolean mapIsFull() {

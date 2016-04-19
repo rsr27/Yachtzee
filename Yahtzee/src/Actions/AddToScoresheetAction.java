@@ -7,12 +7,21 @@ import Game.Player;
 public class AddToScoresheetAction {
 	
 	public static Player addScoretoSheet(Player player) {
+		
 		Scanner kb = new Scanner(System.in);
 		int decision = 0;
 		
-		System.out.println("Enter the number of the slot you would like to put the score in:");
-		displayScoreSheet(player);
-		decision = kb.nextInt();
+		if (player.getHuman())
+		{
+			// Human decisions
+			System.out.println("Enter the number of the slot you would like to put the score in:");
+			displayScoreSheet(player);
+			decision = kb.nextInt();
+		}
+		else
+		{
+			// AI decisions
+		}
 		
 		//player.calc.getDice(player.getDice());
 		
@@ -65,55 +74,53 @@ public class AddToScoresheetAction {
 		return player;
 	}
 	
-	public static Player addScoretoSheet(int slot) {		
+	public static Player addScoretoSheet(Player player, int slot) {		
 		switch(slot) {
 		case 1:
-			Player.calc.scoreOnes();
+			player.calc.addToScoreSheet("ones", player.calc.scoreOnes());
 			break;
 		case 2:
-			Player.calc.scoreTwos();
+			player.calc.addToScoreSheet("twos", player.calc.scoreTwos());
 			break;
 		case 3:
-			Player.calc.scoreThrees();
+			player.calc.addToScoreSheet("threes", player.calc.scoreThrees());
 			break;
 		case 4:
-			Player.calc.scoreFours();
+			player.calc.addToScoreSheet("fours", player.calc.scoreFours());
 			break;
 		case 5:
-			Player.calc.scoreFives();
+			player.calc.addToScoreSheet("fives", player.calc.scoreFives());
 			break;
 		case 6:
-			Player.calc.scoreSixes();
+			player.calc.addToScoreSheet("sixes", player.calc.scoreSixes());
 			break;
 		case 7:
-			Player.calc.scoreChance();
+			player.calc.addToScoreSheet("chance", player.calc.scoreChance());
 			break;
 		case 8:
-			Player.calc.scoreSmallStraight();
+			player.calc.addToScoreSheet("smStr8", player.calc.scoreSmallStraight());
 			break;
 		case 9:
-			Player.calc.scoreLargeStraight();
+			player.calc.addToScoreSheet("lgStr8", player.calc.scoreLargeStraight());
 			break;
 		case 10:
-			Player.calc.score3ofaKind();
+			player.calc.addToScoreSheet("3ofaKind", player.calc.score3ofaKind());
 			break;
 		case 11:
-			Player.calc.score4ofaKind();
+			player.calc.addToScoreSheet("4ofaKind", player.calc.score4ofaKind());
 			break;
 		case 12:
-			Player.calc.scoreFullHouse();
+			player.calc.addToScoreSheet("fullHouse", player.calc.scoreFullHouse());
 			break;
 		case 13:
-			Player.calc.scoreYahtzee();
+			player.calc.addToScoreSheet("yahtzee", player.calc.scoreYahtzee());
 			break;
 		default:
 			break;
 		}
 		
-		Player.displayScoreSheet();
-		
-		// ?
-		return null;
+		player.displayScoreSheet();
+		return player;
 	}
 	//*/
 	

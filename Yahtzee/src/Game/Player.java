@@ -10,13 +10,13 @@ public class Player {
 	//private ArrayList<Die> hand = new ArrayList<Die>();
 	private boolean isHuman;
 	public static ScoreCalculator calc;
-	private ArrayList<Strategy> strategies;
+	//private ArrayList<Strategy> strategies;
 	
 	// Default constructor sets the Player as human
 	public Player() {
 		isHuman = true;
 		calc = new ScoreCalculator();
-		strategies.add(new RandomStrategy());
+		//strategies.add(new RandomStrategy(this));
 	}
 	
 	// Constructor that takes a boolean isHuman defining the Player as human or AI
@@ -78,9 +78,12 @@ public class Player {
 //		return hand;
 //	}
 	public void releaseAllDice() {
-		
 		for (int i = 0; i < 5; i++)
 			releaseDie(i);
+	}
+	
+	public int[] getDiceValues() {
+		return Hand.getInstance().getDiceValues();
 	}
 	
 	// Sets the player as human or AI
@@ -92,4 +95,22 @@ public class Player {
 	public boolean getHuman() {
 		return this.isHuman;
 	}
+	
+	public void setNumRolls(int rolls) {
+		Hand.getInstance().setNumRolls(rolls);
+	}
+	
+	public int getNumRolls() {
+		return Hand.getInstance().getNumRolls();
+	}
+	
+	public void incrementNumRolls() {
+		Hand.getInstance().incrementNumRolls();
+	}
+	
+	public boolean getPreviousSuccess()
+	{
+		return calc.scores.getPreviousSuccess();
+	}
+	
 }

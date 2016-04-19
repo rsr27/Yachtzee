@@ -42,6 +42,10 @@ public class Hand {
 		for(boolean b : holds)
 			b = false;
 	}
+
+	public void setNumRolls(int rolls) {
+		numRolls = rolls;
+	}
 	
 	public int getNumRolls() {
 		return numRolls;
@@ -102,4 +106,5 @@ public class Hand {
 	public HandState getHandState(){
 		return status;
 	}
+	
 }

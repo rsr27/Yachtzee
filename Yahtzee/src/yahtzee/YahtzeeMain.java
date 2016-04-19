@@ -11,7 +11,11 @@ public class YahtzeeMain {
 	public static void main(String[] args) {
 		
 		// This is just so I can commit... -Ryan
+		
+		// Setting the player to an AI now.
+		// Here be dragons...
 		Player player = new Player(true);
+		
 		Scanner kb = new Scanner(System.in);
 		
 		System.out.println("Welcome to Yahtzee!");
@@ -21,6 +25,7 @@ public class YahtzeeMain {
 		}
 		
 		Turn turn = new Turn(player);
+		
 		while(!player.calc.scores.mapIsFull()) {
 			turn.turnRounds(player);
 		}

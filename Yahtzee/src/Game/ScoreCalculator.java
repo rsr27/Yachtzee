@@ -1,5 +1,7 @@
 package Game;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -25,78 +27,158 @@ public class ScoreCalculator {
 	
 	// ----- Here be Dragons - and boring math ----- //
 	// Each "score" function calculates the score for the given hand
-	// for the selected score slot
-	// Each returns true if successfully called
+	// for the selected score slot and returns that score
 	
-	public boolean scoreOnes() {
+	public boolean addToScoreSheet(String slot, int value) {
+		return scores.addScore(slot, value);
+	}
+	
+	public int getBestSlot() {
+		ArrayList<Integer> scores = new ArrayList<Integer>();
+		scores.add(scoreOnes());
+		scores.add(scoreTwos());
+		scores.add(scoreThrees());
+		scores.add(scoreFours());
+		scores.add(scoreFives());
+		scores.add(scoreSixes());
+		scores.add(scoreChance());
+		scores.add(scoreSmallStraight());
+		scores.add(scoreLargeStraight());
+		scores.add(score3ofaKind());
+		scores.add(score4ofaKind());
+		scores.add(scoreFullHouse());
+		scores.add(scoreYahtzee());
+		
+		int largest = 0;
+		int currentIndex = 0;
+		int largestIndex = 0;
+		for(int i : scores) {
+			if (i > largest) {
+				largest = i;
+				largestIndex = currentIndex;
+			}
+			currentIndex++;
+		}
+		
+		return largestIndex+1;
+	}
+	
+	public int getBestLowerSection() {
+		ArrayList<Integer> scores = new ArrayList<Integer>();
+		scores.add(scoreOnes());
+		scores.add(scoreTwos());
+		scores.add(scoreThrees());
+		scores.add(scoreFours());
+		scores.add(scoreFives());
+		scores.add(scoreSixes());		
+		int largest = 0;
+		int currentIndex = 0;
+		int largestIndex = 0;
+		for(int i : scores) {
+			if (i > largest) {
+				largest = i;
+				largestIndex = currentIndex;
+			}
+			currentIndex++;
+		}
+		
+		return largestIndex+1;
+	}
+	
+	public int getBestUpperSection() {
+		ArrayList<Integer> scores = new ArrayList<Integer>();
+		scores.add(scoreChance());
+		scores.add(scoreSmallStraight());
+		scores.add(scoreLargeStraight());
+		scores.add(score3ofaKind());
+		scores.add(score4ofaKind());
+		scores.add(scoreFullHouse());
+		scores.add(scoreYahtzee());
+		
+		int largest = 0;
+		int currentIndex = 6;
+		int largestIndex = 0;
+		for(int i : scores) {
+			if (i > largest) {
+				largest = i;
+				largestIndex = currentIndex;
+			}
+			currentIndex++;
+		}
+		
+		return largestIndex+1;
+	}
+	
+	public int scoreOnes() {
 		int value = 0;
 		for(int i : Hand.getInstance().getDiceValues()) {
 			if(i == 1) {
 				value += 1;
 			}
 		}
-		return scores.addScore("ones", value);
+//		return scores.addScore("ones", value);
+		return value;
 	}
 	
-	public boolean scoreTwos() {
+	public int scoreTwos() {
 		int value = 0;
 		for(int i : Hand.getInstance().getDiceValues()) {
 			if(i == 2) {
 				value += 2;
 			}
 		}
-		return scores.addScore("twos", value);
+		return value;
 	}
 	
-	public boolean scoreThrees() {
+	public int scoreThrees() {
 		int value = 0;
 		for(int i : Hand.getInstance().getDiceValues()) {
 			if(i == 3) {
 				value += 3;
 			}
 		}
-		return scores.addScore("threes", value);
+		return value;
 	}
 	
-	public boolean scoreFours() {
+	public int scoreFours() {
 		int value = 0;
 		for(int i : Hand.getInstance().getDiceValues()) {
 			if(i == 4) {
 				value += 4;
 			}
 		}
-		return scores.addScore("fours", value);
+		return value;
 	}
 	
-	public boolean scoreFives() {
+	public int scoreFives() {
 		int value = 0;
 		for(int i : Hand.getInstance().getDiceValues()) {
 			if(i == 5) {
 				value += 5;
 			}
 		}
-		return scores.addScore("fives", value);
+		return value;
 	}
 	
-	public boolean scoreSixes() {
+	public int scoreSixes() {
 		int value = 0;
 		for(int i : Hand.getInstance().getDiceValues()) {
 			if(i == 6) {
 				value += 6;
 			}
 		}
-		return scores.addScore("sixes", value);
+		return value;
 	}
 	
-	public boolean scoreChance() {
+	public int scoreChance() {
 		int value = 0;
 		for(int i : Hand.getInstance().getDiceValues()) {
 			value += i;
 		}
-		return scores.addScore("chance", value);
+		return value;
 	}
 	
-	public boolean scoreSmallStraight() {
+	public int scoreSmallStraight() {
 		int value = 0;
 		ArrayList<Integer> values = new ArrayList<Integer>();
 		int[] valuesArray = Hand.getInstance().getDiceValues();
@@ -114,10 +196,10 @@ public class ScoreCalculator {
 			else if(values.contains(5) && values.contains(6))
 				value = 30;
 		}
-		return scores.addScore("smStr8", value);
+		return value;
 	}
 	
-	public boolean scoreLargeStraight() {
+	public int scoreLargeStraight() {
 		int value = 0;
 		ArrayList<Integer> values = new ArrayList<Integer>();
 		int[] valuesArray = Hand.getInstance().getDiceValues();
@@ -131,23 +213,61 @@ public class ScoreCalculator {
 			if(values.contains(1) || values.contains(6))
 				value = 40;
 		}
-		return scores.addScore("lgStr8", value);
+		return value;
 	}
 	
-	public boolean score3ofaKind() {
-		int value = 0;
+	public int score3ofaKind() {
+//		int value = 0;
+//		ArrayList<Integer> values = new ArrayList<Integer>();
+//		int[] valuesArray = Hand.getInstance().getDiceValues();
+//		for(int i : valuesArray) {
+//			values.add(i);
+//		}
+//		int duplicates = 0;
+//		int sumOfDice = 0;
+//		
+//		// keep track of the total value of the dice
+//		for(int i : values) {
+//			sumOfDice += i;
+//		}
+//		
+//		// loop through the values twice to check for duplicates
+//		for(int i : values) {
+//			duplicates = 0;
+//			for(int j : values) {
+//				if(j == i) {
+//					duplicates++;
+//				}
+//			}
+//			if(duplicates >= 3) {
+//				value = sumOfDice;
+//				break;
+//			}
+//		}
+		
+		ArrayList<Integer> values = new ArrayList<Integer>();
+		int[] valuesArray = Hand.getInstance().getDiceValues();
+		for(int i : valuesArray) {
+			values.add(i);
+		}
+		// keep track of the total value of the dice
+		int sumOfDice = 0;
+		for(int i : values) {
+			sumOfDice += i;
+		}
+		if(is3ofaKind())
+			return sumOfDice;
+		else
+			return 0;
+	}
+	
+	public boolean is3ofaKind() {
 		ArrayList<Integer> values = new ArrayList<Integer>();
 		int[] valuesArray = Hand.getInstance().getDiceValues();
 		for(int i : valuesArray) {
 			values.add(i);
 		}
 		int duplicates = 0;
-		int sumOfDice = 0;
-		
-		// keep track of the total value of the dice
-		for(int i : values) {
-			sumOfDice += i;
-		}
 		
 		// loop through the values twice to check for duplicates
 		for(int i : values) {
@@ -158,28 +278,65 @@ public class ScoreCalculator {
 				}
 			}
 			if(duplicates >= 3) {
-				value = sumOfDice;
-				break;
+				return true;
 			}
 		}
+		return false;
 		
-		return scores.addScore("3ofaKind", value);
 	}
 	
-	public boolean score4ofaKind() {
-		int value = 0;
+	public int score4ofaKind() {
+//		int value = 0;
+//		ArrayList<Integer> values = new ArrayList<Integer>();
+//		int[] valuesArray = Hand.getInstance().getDiceValues();
+//		for(int i : valuesArray) {
+//			values.add(i);
+//		}
+//		int duplicates = 0;
+//		int sumOfDice = 0;
+//		
+//		// keep track of the total value of the dice
+//		for(int i : values) {
+//			sumOfDice += i;
+//		}
+//		
+//		// loop through the values twice to check for duplicates
+//		for(int i : values) {
+//			duplicates = 0;
+//			for(int j : values) {
+//				if(j == i) {
+//					duplicates++;
+//				}
+//			}
+//			if(duplicates >= 4) {
+//				value = sumOfDice;
+//				break;
+//			}
+//		}		
+		
+		ArrayList<Integer> values = new ArrayList<Integer>();
+		int[] valuesArray = Hand.getInstance().getDiceValues();
+		for(int i : valuesArray) {
+			values.add(i);
+		}
+		// keep track of the total value of the dice
+		int sumOfDice = 0;
+		for(int i : values) {
+			sumOfDice += i;
+		}
+		if(is4ofaKind())
+			return sumOfDice;
+		else
+			return 0;
+	}
+	
+	public boolean is4ofaKind() {
 		ArrayList<Integer> values = new ArrayList<Integer>();
 		int[] valuesArray = Hand.getInstance().getDiceValues();
 		for(int i : valuesArray) {
 			values.add(i);
 		}
 		int duplicates = 0;
-		int sumOfDice = 0;
-		
-		// keep track of the total value of the dice
-		for(int i : values) {
-			sumOfDice += i;
-		}
 		
 		// loop through the values twice to check for duplicates
 		for(int i : values) {
@@ -190,16 +347,51 @@ public class ScoreCalculator {
 				}
 			}
 			if(duplicates >= 4) {
-				value = sumOfDice;
-				break;
+				return true;
 			}
 		}
-		
-		return scores.addScore("4ofaKind", value);
+		return false;
 	}
 	
-	public boolean scoreFullHouse() {
-		int value = 0;
+	public int scoreFullHouse() {
+//		int value = 0;
+//		ArrayList<Integer> values = new ArrayList<Integer>();
+//		int[] valuesArray = Hand.getInstance().getDiceValues();
+//		for(int i : valuesArray) {
+//			values.add(i);
+//		}
+//		int dieValue1 = values.get(0);
+//		int dieValue1Count = 0;
+//		int dieValue2 = 0;
+//		int dieValue2Count = 0;
+//		
+//		for(int i : values) {
+//			if(i != dieValue1) {
+//				dieValue2 = i;
+//				break;
+//			}
+//		}
+//		
+//		for(int i : values) {
+//			if(i == dieValue1) {
+//				dieValue1Count++;
+//			}
+//			if(i == dieValue2) {
+//				dieValue2Count++;
+//			}
+//		}
+//		
+//		if((dieValue1Count == 2 && dieValue2Count == 3) || (dieValue1Count == 3 && dieValue2Count == 2)) {
+//			value = 25;
+//		}
+		
+		if(isFullHouse())
+			return 50;
+		else
+			return 0;
+	}
+	
+	public boolean isFullHouse() {
 		ArrayList<Integer> values = new ArrayList<Integer>();
 		int[] valuesArray = Hand.getInstance().getDiceValues();
 		for(int i : valuesArray) {
@@ -227,14 +419,32 @@ public class ScoreCalculator {
 		}
 		
 		if((dieValue1Count == 2 && dieValue2Count == 3) || (dieValue1Count == 3 && dieValue2Count == 2)) {
-			value = 25;
+			return true;
 		}
-		
-		return scores.addScore("fullHouse", value);
+		return false;
 	}
 	
-	public boolean scoreYahtzee() {
-		int value = 50;
+	public int scoreYahtzee() {
+//		int value = 50;
+//		ArrayList<Integer> values = new ArrayList<Integer>();
+//		int[] valuesArray = Hand.getInstance().getDiceValues();
+//		for(int i : valuesArray) {
+//			values.add(i);
+//		}
+//		int dieValue = valuesArray[0];
+//		for(int i : valuesArray) {
+//			if(i != dieValue) {
+//				value = 0;
+//				break;
+//			}
+//		}
+		if(isYahtzee())
+			return 50;
+		else
+			return 0;
+	}
+	
+	public boolean isYahtzee() {
 		ArrayList<Integer> values = new ArrayList<Integer>();
 		int[] valuesArray = Hand.getInstance().getDiceValues();
 		for(int i : valuesArray) {
@@ -243,10 +453,9 @@ public class ScoreCalculator {
 		int dieValue = valuesArray[0];
 		for(int i : valuesArray) {
 			if(i != dieValue) {
-				value = 0;
-				break;
+				return false;
 			}
 		}
-		return scores.addScore("ones", value);
+		return true;
 	}
 }
