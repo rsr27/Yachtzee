@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 public class Scoresheet {
-	private int totalScore;
 	private int numSlotsFilled;
 	private boolean previousSuccess = true;
 	
@@ -27,7 +26,6 @@ public class Scoresheet {
 		scoreHash.put("fullHouse", -1);
 
 		numSlotsFilled = 0;
-		totalScore = 0;
 	}
 	
 	public boolean addScore(String slot, int score) {
@@ -45,14 +43,18 @@ public class Scoresheet {
 	}
 	
 	public int getTotalScore() {
+
+		int totalScore = 0;
 		int scoreInSlot = 0;
 		Iterator it = scoreHash.values().iterator();
 		while(it.hasNext()) {
 			scoreInSlot = (int) it.next();
+			
 			if (scoreInSlot != -1) {
 				totalScore += scoreInSlot;
 			}
 		}
+		
 		return totalScore;
 	}
 
@@ -133,6 +135,5 @@ public class Scoresheet {
 		scoreHash.put("fullHouse", -1);
 
 		numSlotsFilled = 0;
-		totalScore = 0;
 	}
 }

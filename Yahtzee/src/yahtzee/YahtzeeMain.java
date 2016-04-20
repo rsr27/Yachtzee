@@ -1,6 +1,7 @@
 package yahtzee;
 
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 import Actions.HoldAction;
 import Actions.Turn;
@@ -18,6 +19,9 @@ public class YahtzeeMain {
 		
 		float gamesTotal = 0;
 		int numOfGames = 100;
+		
+		int highestScore = 0, lowestScore = 50000;
+		
 		for(int i = 0; i < numOfGames; i++) {
 			System.out.println("Welcome to Yahtzee!");
 			
@@ -29,21 +33,43 @@ public class YahtzeeMain {
 					player.rollUnheldDice();
 				}
 			}
+			else
+			{
+				player.rollUnheldDice();
+			}
 			
 			Turn turn = new Turn(player);
 			
 			while(!player.calc.scores.mapIsFull()) {
 				turn.turnRounds(player);
+				
+				/*try {
+					TimeUnit.SECONDS.sleep(5);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}*/
 			}
 			
 			System.out.println();
-			gamesTotal += player.calc.scores.getTotalScore();
-			System.out.println("Your final score: " + player.calc.scores.getTotalScore());
+			
+			int newScore = player.calc.scores.getTotalScore();
+			
+			if (newScore > highestScore)
+				highestScore = player.calc.scores.getTotalScore();
+		
+			if (newScore < lowestScore)
+				lowestScore = newScore;
+			
+			gamesTotal += newScore;
 			player.displayScoreSheet();
+			System.out.println("Your final score: " + newScore);
 			
 			player.calc.scores.resetScores();
 		}
 		System.out.println("Your average score is: " + (gamesTotal/numOfGames));
+		System.out.println("Your highest score is: " + highestScore);
+		System.out.println("Your lowest score is: " + lowestScore);
 	}
 	
 	public static void holdDice() {

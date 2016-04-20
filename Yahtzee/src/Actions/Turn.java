@@ -9,19 +9,31 @@ import Game.Player;
 
 public class Turn {
 
+	// The player that this turn cooresponds to.
 	private Player player;
+	
+	// Keyboard input object
 	Scanner kb = new Scanner(System.in);
 	
+	// Constructor
 	public Turn(Player player) {
-		this.player = player;
+		this.player = player; // set our player
 		Hand.getInstance().setNumRolls(1); // start roll counts as 1
 	}
 	
+	// This is the main function that handles playing the game. It emulates
+	// the behavior of taking a turn.
 	public Player turnRounds(Player turnPlayer) {
 		
+		// If the player is a human, allow the user to make his
+		// own decisions.
 		if (turnPlayer.getHuman()) {
+			
+			// Variables to hold player decisions
 			String decision = "";
 			boolean scored = false;
+			
+			// Loop until you've rolled 3 times.
 			while(Hand.getInstance().getNumRolls() < 3 && scored == false) {
 				decision = "";
 				while(!decision.equals("h") && !decision.equals("r") && !decision.equals("0") && !decision.equals("s")) {
@@ -62,14 +74,11 @@ public class Turn {
 			}
 
 			scored = true;
-			
-			player = AddToScoresheetAction.addScoretoSheet(player);
-			
-			while (!player.getPreviousSuccess())
-			{
+		
+			do {
 				player = AddToScoresheetAction.addScoretoSheet(player);
-			}
-
+			} while (!player.getPreviousSuccess());
+			
 			player.releaseAllDice();
 			Hand.getInstance().setNumRolls(1);
 			player.rollUnheldDice();
@@ -78,21 +87,21 @@ public class Turn {
 		else
 		{
 			// AI
-			Strategy strats;
-			String stratName = AIPicker.pickAI();
-			if(stratName.equals("Upper Sectioner"))
+			Strategy strats = null;
+			
+			int strategyId = AIPicker.pickAI(player);
+			
+			if(strategyId == AIPicker.STRATEGY_UPPERSECTION)
 				strats = new UpperSectioner(player);
-			else if(stratName.equals("4 and Up"))
+			else if (strategyId == AIPicker.STRATEGY_4UP)
 				strats = new FourAndUp(player);
-			else if(stratName.equals("Of a Kinder"))
+			else if (strategyId == AIPicker.STRATEGY_OFAKINDER)
 				strats = new OfAKinder(player);
 			else
 				strats = new RandomStrategy(player);
 
-			
-			strats = new FourAndUp(player);
-			System.out.println(strats.getName());
-			
+			//strats = new FourAndUp(player);
+			System.out.println("Decided to use \"" + strats.getName() + "\" strategy!\n");
 			strats.takeTurn();
 			
 			// Release the Kraken!

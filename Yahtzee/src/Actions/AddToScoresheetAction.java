@@ -5,75 +5,34 @@ import java.util.Scanner;
 import Game.Player;
 
 public class AddToScoresheetAction {
-	
+
+	// This method should not be called by the AI
 	public static Player addScoretoSheet(Player player) {
 		
 		Scanner kb = new Scanner(System.in);
-		int decision = 0;
-		
+
+		// Human decisions
 		if (player.getHuman())
 		{
-			// Human decisions
+			int decision = 0;
 			System.out.println("Enter the number of the slot you would like to put the score in:");
 			displayScoreSheet(player);
 			decision = kb.nextInt();
+			player = addScoretoSheet(player, decision);
+			displayScoreSheet(player);
 		}
 		else
 		{
-			// AI decisions
+			System.out.println("Error: AI calling human only method.");
+			
 		}
 		
 		//player.calc.getDice(player.getDice());
 		
-		switch(decision) {
-		case 1:
-			player.calc.scoreOnes();
-			break;
-		case 2:
-			player.calc.scoreTwos();
-			break;
-		case 3:
-			player.calc.scoreThrees();
-			break;
-		case 4:
-			player.calc.scoreFours();
-			break;
-		case 5:
-			player.calc.scoreFives();
-			break;
-		case 6:
-			player.calc.scoreSixes();
-			break;
-		case 7:
-			player.calc.scoreChance();
-			break;
-		case 8:
-			player.calc.scoreSmallStraight();
-			break;
-		case 9:
-			player.calc.scoreLargeStraight();
-			break;
-		case 10:
-			player.calc.score3ofaKind();
-			break;
-		case 11:
-			player.calc.score4ofaKind();
-			break;
-		case 12:
-			player.calc.scoreFullHouse();
-			break;
-		case 13:
-			player.calc.scoreYahtzee();
-			break;
-		default:
-			break;
-		}
-		
-		displayScoreSheet(player);
-		
 		return player;
 	}
 	
+	// This method should be called by the AI
 	public static Player addScoretoSheet(Player player, int slot) {		
 		switch(slot) {
 		case 1:
@@ -124,6 +83,7 @@ public class AddToScoresheetAction {
 	}
 	//*/
 	
+	// Prints the score sheet out
 	public static void displayScoreSheet(Player player) {
 		System.out.println();
 		System.out.println("Ones:            1    " + getScoreInSheet(player, "ones"));
@@ -142,6 +102,7 @@ public class AddToScoresheetAction {
 		System.out.println();
 	}
 	
+	// Returns a string decsribing the state of the given sheet
 	public static String getScoreInSheet(Player player, String slot) {
 		String returnString = "Slot holds: ";
 		if(player.calc.scores.scoreHash.get(slot) == -1)

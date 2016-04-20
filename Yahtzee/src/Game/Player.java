@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import AI.RandomStrategy;
 import AI.Strategy;
 /*
- * This class acts as a FACADE
+ * This class acts as a FACADE for the Hand class
  */
 public class Player {
 	

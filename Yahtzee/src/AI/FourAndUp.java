@@ -31,7 +31,10 @@ public class FourAndUp implements Strategy {
 				AddToScoresheetAction.addScoretoSheet(player, 13);
 				
 				if (player.getPreviousSuccess())
+				{
+					player.setNumRolls(0);
 					break;
+				}
 			}
 		}
 		

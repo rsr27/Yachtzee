@@ -32,6 +32,30 @@ public class UpperSectioner implements Strategy {
 					}
 				}
 			}
+
+			if(player.calc.isLargeStraight())
+			{
+				AddToScoresheetAction.addScoretoSheet(player, 9);
+				
+				if (player.getPreviousSuccess())
+				{
+					player.setNumRolls(0);
+					return;
+				}
+			}
+			
+			if(player.calc.isSmallStraight())
+			{
+				AddToScoresheetAction.addScoretoSheet(player, 8);
+				
+				if (player.getPreviousSuccess())
+				{
+					player.setNumRolls(0);
+					return;
+				}
+			}
+
+			
 			
 //			if(player.calc.isYahtzee())
 //				AddToScoresheetAction.addScoretoSheet(player, 13);

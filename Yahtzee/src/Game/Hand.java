@@ -28,6 +28,9 @@ public class Hand {
 		
 		for(boolean b : holds)
 			b = false;
+		
+		for (int i: dice)
+			i = 1;
 	}
 	
 	// Gets Singleton instance

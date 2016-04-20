@@ -129,7 +129,6 @@ public class ScoreCalculator {
 			currentIndex++;
 		}
 		
-		System.out.println("Largest index: " + (largestIndex+1) );
 		return largestIndex+1;
 	}
 	
@@ -328,6 +327,30 @@ public class ScoreCalculator {
 		return value;
 	}
 	
+	public boolean isSmallStraight() {
+
+		boolean straight = false;
+		
+		ArrayList<Integer> values = new ArrayList<Integer>();
+		int[] valuesArray = Hand.getInstance().getDiceValues();
+		for(int i : valuesArray) {
+			values.add(i);
+		}
+		
+		// calculates whether or not the dice contain a small straight
+		// and adds 30 to the score if so
+		if(values.contains(3) && values.contains(4)) {
+			if(values.contains(1) && values.contains(2))
+				straight = true;
+			else if(values.contains(2) && values.contains(5))
+				straight = true;
+			else if(values.contains(5) && values.contains(6))
+				straight = true;
+		}
+		
+		return straight;
+	}
+	
 	public int scoreSmallStraight() {
 		int value = 0;
 		ArrayList<Integer> values = new ArrayList<Integer>();
@@ -347,6 +370,26 @@ public class ScoreCalculator {
 				value = 30;
 		}
 		return value;
+	}
+
+	public boolean isLargeStraight() {
+
+		boolean straight = false;
+		
+		ArrayList<Integer> values = new ArrayList<Integer>();
+		int[] valuesArray = Hand.getInstance().getDiceValues();
+		for(int i : valuesArray) {
+			values.add(i);
+		}
+
+		// calculates whether or not the dice contain a large straight
+		// and adds 40 to the score if so
+		if(values.contains(2) && values.contains(3) && values.contains(4) && values.contains(5)) {
+			if(values.contains(1) || values.contains(6))
+				straight = true;
+		}
+		
+		return straight;
 	}
 	
 	public int scoreLargeStraight() {
